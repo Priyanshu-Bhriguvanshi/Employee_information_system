@@ -78,9 +78,7 @@ elif choice==2:
 #delete record
 
 elif choice==3:
-    count=0
     while True:
-        count=count+1
         sql= "delete from emp where eid=%s"
         eid=input("Enter Emp id : ")
         curr=conn.cursor()
@@ -89,27 +87,23 @@ elif choice==3:
         print("\nDo u want to continue? y or n")
         y_or_no=input("Enter Choice ...").lower()
         if y_or_no=="n":
-            print(count, "Row Deleted...")
+            print("Row Deleted...")
             print("You Chosse to exit...")
             break
 
 # find record
 
 elif choice==4:
-    emp_id = input("Enter Emp ID to search: ")
+    emp_id = input("Enter Emp ID for search record: ")
     sql = "SELECT * FROM emp WHERE eid = %s"
     val = (emp_id,)
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
     cursor.execute(sql, val)
-    result = cursor.fetchone()
+    result = cursor.fetchmany(1)
 
     if result:
-        print("Employee Found:")
-        print("Emp ID:", result["eid"])
-        print("Emp Name:", result["ename"])
-        print("Dno.:", result["dno"])
-        print("Salary:", result["sal"])
-        print("Email:", result["email"])
+        for data in result:
+            print(data)
     else:
         print("Employee not found.")
 
