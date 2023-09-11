@@ -118,7 +118,15 @@ elif choice==4:
 
 
 elif choice == 5:
-    print("")
+    sql="select * from emp"
+    curr=conn.cursor()
+    curr.execute(sql)
+    records = curr.fetchall()
+    for record in records:
+        print(record)
+
+
+
 else :
     print("Yoou Enter Wrong Choice")
 
